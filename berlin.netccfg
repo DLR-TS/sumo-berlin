@@ -6,7 +6,7 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <osm-files value="osm/bb_filtered.osm.xml"/>
+        <osm-files value="osm/bb_filtered.osm.xml.gz"/>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml"/>
         <!--
         <node-files value="netpatch/patch.nod.xml,netpatch/patch_A39_B1.nod.xml"/>
@@ -18,11 +18,11 @@
 
     <output>
         <output-prefix value="netpatch/berlin"/>
-        <output-file value=".net.xml"/>
+        <output-file value=".net.xml.gz"/>
         <output.street-names value="true"/>
         <output.original-names value="false"/>
-        <ptstop-output value="_stops.add.xml"/>
-        <ptline-output value="_ptlines.xml"/>
+        <ptstop-output value="_stops.add.xml.gz"/>
+        <ptline-output value="_ptlines.xml.gz"/>
     </output>
 
     <processing>

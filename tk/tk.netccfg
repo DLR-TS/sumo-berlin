@@ -6,15 +6,15 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="../netpatch/berlin.net.xml"/>
-        <ptstop-files value="../netpatch/berlin_stops.add.xml"/>
-        <ptline-files value="../netpatch/berlin_ptlines.xml"/>
+        <sumo-net-file value="../netpatch/berlin.net.xml.gz"/>
+        <ptstop-files value="../netpatch/berlin_stops.add.xml.gz"/>
+        <ptline-files value="../netpatch/berlin_ptlines.xml.gz"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
-        <ptstop-output value="tk_stops.add.xml"/>
-        <ptline-output value="tk_ptlines.xml"/>
+        <output-file value="net.net.xml.gz"/>
+        <ptstop-output value="tk_stops.add.xml.gz"/>
+        <ptline-output value="tk_ptlines.xml.gz"/>
     </output>
 
     <no-internal-links value="false"/>
