@@ -1,2 +1,5 @@
 shape.txt
 tkshape.poly.xml
+*.net.xml.gz
+*_ptlines.xml.gz
+*_stops.add.xml.gz
