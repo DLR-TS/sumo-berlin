@@ -21,3 +21,25 @@ call = ["osmfilter", "osm/bb.o5m", "--keep-ways=highway= railway= cycleway= aero
 with gzip.open("osm/bb_filtered.osm.xml.gz", "wb") as filtered:
     filtered.write(subprocess.check_output(call))
 subprocess.check_call([sumolib.checkBinary("netconvert"), "berlin.netccfg"])
+net = sumolib.net.readNet("netpatch/berlin.net.xml.gz")
+with open("landmarks") as landmarks:
+    new_landmarks = []
+    for line in landmarks:
+        edge_id = line.strip()
+        if not net.hasEdge(edge_id):
+            print("missing landmark edge", edge_id)
+            if "#" in edge_id:
+                osm_id, idx = edge_id.split("#")
+                idx = int(idx)
+            else:
+                osm_id, idx = edge_id, 1
+            for i in (idx - 1, idx, idx + 1):
+                edge_id = "%s#%s" % (osm_id, i)
+                if net.hasEdge(edge_id):
+                    print("proposing", edge_id)
+                    break
+        new_landmarks.append(edge_id)
+with open("new_landmarks", "w") as landmarks:
+    landmarks.write("\n".join(new_landmarks))
+
+subprocess.check_call([sumolib.checkBinary("netconvert"), "tk/tk.netccfg"])
