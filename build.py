@@ -7,6 +7,22 @@ import urllib.request
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 
+
+def check_edge(net, edge_id):
+    if "#" in edge_id:
+        osm_id, idx = edge_id.split("#")
+        idx = int(idx)
+    else:
+        osm_id, idx = edge_id, 1
+    for i in (idx - 1, idx, idx + 1):
+        new_id = "%s#%s" % (osm_id, i)
+        if net.hasEdge(new_id):
+            return True, new_id
+    if not found and net.hasEdge(osm_id):
+        return True, osm_id
+    return False, edge_id
+
+
 #urllib.request.urlretrieve("https://download.geofabrik.de/europe/germany/brandenburg-latest.osm.pbf", "osm/brandenburg-latest.osm.pbf")
 lon = []
 lat = []
@@ -26,19 +42,18 @@ with open("landmarks") as landmarks:
     new_landmarks = []
     for line in landmarks:
         edge_id = line.strip()
+        found = True
         if not net.hasEdge(edge_id):
             print("missing landmark edge", edge_id)
-            if "#" in edge_id:
-                osm_id, idx = edge_id.split("#")
-                idx = int(idx)
-            else:
-                osm_id, idx = edge_id, 1
-            for i in (idx - 1, idx, idx + 1):
-                edge_id = "%s#%s" % (osm_id, i)
-                if net.hasEdge(edge_id):
-                    print("proposing", edge_id)
-                    break
-        new_landmarks.append(edge_id)
+            found, edge_id = check_edge(net, edge_id)
+            if not found:
+                if edge_id[0] == "-":
+                    edge_id = edge_id[1:]
+                else:
+                    edge_id = "-" + edge_id
+                found, edge_id = check_edge(net, edge_id)
+        if found:
+            new_landmarks.append(edge_id)
 with open("new_landmarks", "w") as landmarks:
     landmarks.write("\n".join(new_landmarks))
 
