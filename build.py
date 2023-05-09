@@ -8,7 +8,24 @@ sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 
 
-def check_edge(net, edge_id):
+def update():
+    urllib.request.urlretrieve("https://download.geofabrik.de/europe/germany/brandenburg-latest.osm.pbf",
+                               "osm/brandenburg-latest.osm.pbf")
+    lon = []
+    lat = []
+    for poi in sumolib.xml.parse_fast("location_priorities.xml", "poi", ["lon", "lat"]):
+        lon.append(float(poi.lon))
+        lat.append(float(poi.lat))
+    subprocess.check_call(["osmconvert", "osm/brandenburg-latest.osm.pbf", "-o=osm/bb.o5m",
+                           "-b=%s,%s,%s,%s" % (min(lon) - 0.01, min(lat) - 0.01, max(lon) + 0.01, max(lat) + 0.01)])
+    call = ["osmfilter", "osm/bb.o5m", "--keep-ways=highway= railway= cycleway= aeroway= waterway=",
+            "--keep-nodes=", "--drop-relations=type=multipolygon route=hiking", "--drop-author",
+            "--drop-tags=note= old_name= source= name:etymology:wikidata= wikipedia="]
+    with gzip.open("osm/bb_filtered.osm.xml.gz", "wb") as filtered:
+        filtered.write(subprocess.check_output(call))
+
+
+def check_edge(net, edge_id, found):
     if "#" in edge_id:
         osm_id, idx = edge_id.split("#")
         idx = int(idx)
@@ -23,38 +40,48 @@ def check_edge(net, edge_id):
     return False, edge_id
 
 
-#urllib.request.urlretrieve("https://download.geofabrik.de/europe/germany/brandenburg-latest.osm.pbf", "osm/brandenburg-latest.osm.pbf")
-lon = []
-lat = []
-for poi in sumolib.xml.parse_fast("location_priorities.xml", "poi", ["lon", "lat"]):
-    lon.append(float(poi.lon))
-    lat.append(float(poi.lat))
-subprocess.check_call(["osmconvert", "osm/brandenburg-latest.osm.pbf", "-o=osm/bb.o5m",
-                       "-b=%s,%s,%s,%s" % (min(lon) - 0.01, min(lat) - 0.01, max(lon) + 0.01, max(lat) + 0.01)])
-call = ["osmfilter", "osm/bb.o5m", "--keep-ways=highway= railway= cycleway= aeroway= waterway=",
-        "--keep-nodes=", "--drop-relations=type=multipolygon route=hiking", "--drop-author",
-        "--drop-tags=note= old_name= source= name:etymology:wikidata= wikipedia="]
-with gzip.open("osm/bb_filtered.osm.xml.gz", "wb") as filtered:
-    filtered.write(subprocess.check_output(call))
-subprocess.check_call([sumolib.checkBinary("netconvert"), "berlin.netccfg"])
-net = sumolib.net.readNet("netpatch/berlin.net.xml.gz")
-with open("landmarks") as landmarks:
-    new_landmarks = []
-    for line in landmarks:
-        edge_id = line.strip()
-        found = True
-        if not net.hasEdge(edge_id):
-            print("missing landmark edge", edge_id)
-            found, edge_id = check_edge(net, edge_id)
-            if not found:
-                if edge_id[0] == "-":
-                    edge_id = edge_id[1:]
-                else:
-                    edge_id = "-" + edge_id
-                found, edge_id = check_edge(net, edge_id)
-        if found:
-            new_landmarks.append(edge_id)
-with open("new_landmarks", "w") as landmarks:
-    landmarks.write("\n".join(new_landmarks))
+def check_landmarks():
+    net = sumolib.net.readNet("netpatch/berlin.net.xml.gz")
+    with open("landmarks") as landmarks:
+        new_landmarks = []
+        for line in landmarks:
+            edge_id = line.strip()
+            found = True
+            if not net.hasEdge(edge_id):
+                print("missing landmark edge", edge_id)
+                found, edge_id = check_edge(net, edge_id, found)
+                if not found:
+                    if edge_id[0] == "-":
+                        edge_id = edge_id[1:]
+                    else:
+                        edge_id = "-" + edge_id
+                    found, edge_id = check_edge(net, edge_id, found)
+            if found:
+                new_landmarks.append(edge_id)
+    with open("new_landmarks", "w") as landmarks:
+        landmarks.write("\n".join(new_landmarks))
 
-subprocess.check_call([sumolib.checkBinary("netconvert"), "tk/tk.netccfg"])
+
+def main():
+    argParser = sumolib.options.ArgumentParser()
+    argParser.add_argument("-v", "--verbose", action="store_true", default=False,
+                           help="tell me what you are doing")
+    argParser.add_argument("-l", "--check-landmarks", action="store_true", default=False,
+                           help="recheck landmark validity")
+    argParser.add_argument("-u", "--update", action="store_true", default=False,
+                           help="update OSM data from geofabrik")
+    options = argParser.parse_args()
+    if options.update:
+        update()
+    subprocess.check_call([sumolib.checkBinary("netconvert"), "berlin.netccfg"])
+    if options.check_landmarks:
+        check_landmarks()
+    typemapPrefix = os.path.join(os.environ["SUMO_HOME"], "data", "typemap", "osmNetconvert")
+    subprocess.check_call([sumolib.checkBinary("netconvert"), "-c", "berlin.netccfg", "-o", "-sbahn.net.xml",
+                           "--keep-edges.by-type", "railway.light_rail|usage.main",
+                           "--type-files", typemapPrefix + ".typ.xml," + typemapPrefix + "RailUsage.typ.xml"])
+    subprocess.check_call([sumolib.checkBinary("netconvert"), "tk/tk.netccfg"])
+
+
+if __name__ == "__main__":
+    main()
