@@ -1,0 +1,6 @@
+fcd
+resources
+*.gz
+*.zip
+berlin.log
+vtypes.xml

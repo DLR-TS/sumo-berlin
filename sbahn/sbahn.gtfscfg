@@ -1,0 +1,8 @@
+<configuration>
+    <gtfs value="BVG_VBB_bereichsscharf_20190603.zip"/>
+    <date value="20190904"/>
+    <network value="berlin-sbahn.net.xml.gz"/>
+    <network-split-vclass value="True"/>
+    <additional-output value="sbahn_stops.add.xml.gz"/>
+    <route-output value="sbahn_vehicles.add.xml.gz"/>
+</configuration>
