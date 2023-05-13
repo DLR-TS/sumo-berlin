@@ -1,5 +1,4 @@
 <add>
-    <vType id="ped_bike" vClass="bicycle"/>
     <vType id="train" vClass="rail">
         <param key="has.rerouting.device" value="false"/>
     </vType>
