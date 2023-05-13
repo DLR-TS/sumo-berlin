@@ -70,16 +70,19 @@ def main():
                            help="recheck landmark validity")
     argParser.add_argument("-u", "--update", action="store_true", default=False,
                            help="update OSM data from geofabrik")
+    argParser.add_argument("--sbahn", action="store_true", default=False,
+                           help="build only sbahn simulation")
     options = argParser.parse_args()
     if options.update:
         update()
-    subprocess.check_call([sumolib.checkBinary("netconvert"), "berlin.netccfg"])
+    if not options.sbahn:
+        subprocess.check_call([sumolib.checkBinary("netconvert"), "berlin.netccfg"])
     if options.check_landmarks:
         check_landmarks()
     typemapPrefix = os.path.join(os.environ["SUMO_HOME"], "data", "typemap", "osmNetconvert")
     subprocess.check_call([sumolib.checkBinary("netconvert"), "-c", "berlin.netccfg",
                            "--output-prefix", "sbahn/berlin", "-o", "-sbahn.net.xml.gz",
-                           "--keep-edges.by-type", "railway.light_rail|usage.main,railway.light_rail|service.siding",
+                           "--keep-edges.by-type", "railway.light_rail|usage.main,railway.light_rail|service.siding,railway.light_rail|service.crossover",
                            "--type-files", typemapPrefix + ".typ.xml," + typemapPrefix + "RailUsage.typ.xml"])
     if not os.path.exists("sbahn/BVG_VBB_bereichsscharf_20190603.zip"):
         urllib.request.urlretrieve("https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2019.zip",

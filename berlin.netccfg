@@ -66,6 +66,7 @@
 
     <railway>
         <railway.topology.repair value="true"/>
+        <railway.topology.repair.minimal value="true"/>
     </railway>
 
     <report>
