@@ -67,6 +67,7 @@
     <railway>
         <railway.topology.repair value="true"/>
         <railway.topology.repair.minimal value="true"/>
+        <railway.signal.guess.by-stops value="true"/>
     </railway>
 
     <report>
