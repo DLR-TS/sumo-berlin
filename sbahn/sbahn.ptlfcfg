@@ -8,4 +8,5 @@
     <ptstops-file value="berlin_stops.add.xml.gz"/>
     <random-begin value="True"/>
     <types value="light_rail"/>
+    <end value="10800"/>
 </configuration>
