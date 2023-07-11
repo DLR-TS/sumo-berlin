@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-07-11 14:33:12 by Eclipse SUMO netconvert Version v1_18_0+0248-c326a3e9e5c
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="berlin-sbahn.net.xml.gz"/>
+        <node-files value="berlin-sbahn-stations.net.xml.nod.xml"/>
+        <edge-files value="berlin-sbahn-stations.net.xml.edg.xml"/>
+        <ptstop-files value="berlin_stops.add.xml.gz"/>
+    </input>
+
+    <output>
+        <output-file value="berlin-sbahn-stations.net.xml"/>
+        <ptstop-output value="berlin-stations_stops.add.xml"/>
+    </output>
+
+</configuration>

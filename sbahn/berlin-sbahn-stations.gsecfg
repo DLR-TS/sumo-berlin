@@ -1,0 +1,5 @@
+<configuration>
+    <net-file value="berlin-sbahn.net.xml.gz"/>
+    <stop-file value="berlin_stops.add.xml.gz"/>
+    <output-prefix value="berlin-sbahn-stations.net.xml"/>
+</configuration>

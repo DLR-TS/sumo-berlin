@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-05-08 11:57:37 by Eclipse SUMO sumo Version v1_17_0+0149-e2883309071
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="berlin-sbahn-stations.net.xml"/>
+        <additional-files value="berlin-stations_stops.add.xml,berlin_pt.rou.xml"/>
+        <route-files value="persons.trips.xml"/>
+    </input>
+    <ignore-route-errors value="false"/>
+    <time-to-teleport.disconnected value="0"/>
+    <time-to-teleport value="3600"/>
+    <t value="true"/>
+    <end value="10800"/>
+
+</configuration>

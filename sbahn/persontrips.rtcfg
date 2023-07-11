@@ -1,0 +1,9 @@
+<configuration>
+    <net-file value="berlin-sbahn-stations.net.xml"/>
+    <additional-files value="berlin-stations_stops.add.xml"/>
+    <output-trip-file value="persons.trips.xml"/>
+    <persontrips value="True"/>
+    <from-stops value="busStop"/>
+    <to-stops value="busStop"/>
+    <trip-attributes value="modes='public'"/>
+</configuration>
