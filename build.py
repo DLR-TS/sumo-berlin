@@ -76,11 +76,11 @@ def main():
     if options.update:
         update()
     if not options.sbahn:
-        subprocess.check_call([sumolib.checkBinary("netconvert"), "berlin.netccfg"])
+        subprocess.check_call([sumolib.checkBinary("netconvert"), "netpatch/berlin.netccfg"])
     if options.check_landmarks:
         check_landmarks()
     typemapPrefix = os.path.join(os.environ["SUMO_HOME"], "data", "typemap", "osmNetconvert")
-    subprocess.check_call([sumolib.checkBinary("netconvert"), "-c", "berlin.netccfg",
+    subprocess.check_call([sumolib.checkBinary("netconvert"), "-c", "netpatch/berlin.netccfg",
                            "--output-prefix", "sbahn/berlin", "-o", "-sbahn.net.xml.gz",
                            "--keep-edges.by-type", "railway.light_rail|usage.main,railway.light_rail|service.siding,railway.light_rail|service.crossover",
                            "--type-files", typemapPrefix + ".typ.xml," + typemapPrefix + "RailUsage.typ.xml"])
