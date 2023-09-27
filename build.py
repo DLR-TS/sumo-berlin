@@ -80,10 +80,10 @@ def main():
     if options.check_landmarks:
         check_landmarks()
     typemapPrefix = os.path.join(os.environ["SUMO_HOME"], "data", "typemap", "osmNetconvert")
-    subprocess.check_call([sumolib.checkBinary("netconvert"), "-c", "netpatch/berlin.netccfg",
-                           "--output-prefix", "sbahn/berlin", "-o", "-sbahn.net.xml.gz",
+    subprocess.check_call([sumolib.checkBinary("netconvert"), "-c", "berlin.netccfg",
+                           "--output-prefix", "../sbahn/berlin-", "-o", "sbahn.net.xml.gz",
                            "--keep-edges.by-type", "railway.light_rail|usage.main,railway.light_rail|service.siding,railway.light_rail|service.crossover",
-                           "--type-files", typemapPrefix + ".typ.xml," + typemapPrefix + "RailUsage.typ.xml"])
+                           "--type-files", typemapPrefix + ".typ.xml," + typemapPrefix + "RailUsage.typ.xml"], cwd='netpatch')
     if not os.path.exists("sbahn/BVG_VBB_bereichsscharf_20190603.zip"):
         urllib.request.urlretrieve("https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2019.zip",
                                    "sbahn/BVG_VBB_bereichsscharf_20190603.zip")

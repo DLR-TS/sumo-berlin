@@ -6,7 +6,7 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <osm-files value="osm/bb_filtered.osm.xml.gz"/>
+        <osm-files value="../osm/bb_filtered.osm.xml.gz"/>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml"/>
         <!--
         <node-files value="patch.nod.xml,patch_A39_B1.nod.xml"/>
