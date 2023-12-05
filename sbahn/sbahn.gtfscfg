@@ -6,4 +6,5 @@
     <additional-output value="sbahn_stops.add.xml.gz"/>
     <route-output value="sbahn_vehicles.add.xml.gz"/>
     <center-stops value="True"/>
+    <modes value="light_rail"/>
 </configuration>

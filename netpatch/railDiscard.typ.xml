@@ -1,0 +1,6 @@
+<types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+
+    <type id="railway.light_rail|service.yard" discard="true"/>
+    <type id="railway.rail|service.yard" discard="true"/>
+
+</types>
