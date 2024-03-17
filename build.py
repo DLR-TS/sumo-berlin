@@ -72,24 +72,35 @@ def main():
                            help="update OSM data from geofabrik")
     argParser.add_argument("--sbahn", action="store_true", default=False,
                            help="build only sbahn simulation")
+    argParser.add_argument("--osmpt", action="store_true", default=False,
+                           help="use public transport routes from OSM rather than GTFS")
+    argParser.add_argument("--skip-net", dest="skipnet",  action="store_true", default=False,
+                           help="do not rebuild the network")
     options = argParser.parse_args()
     if options.update:
         update()
-    if not options.sbahn:
+    if not options.sbahn and not options.skipnet:
         subprocess.check_call([sumolib.checkBinary("netconvert"), "netpatch/berlin.netccfg"])
     if options.check_landmarks:
         check_landmarks()
     typemapPrefix = os.path.join(os.environ["SUMO_HOME"], "data", "typemap", "osmNetconvert")
-    subprocess.check_call([sumolib.checkBinary("netconvert"), "-c", "berlin.netccfg",
-                           "--output-prefix", "../sbahn/berlin-", "-o", "sbahn.net.xml.gz",
-                           "--keep-edges.by-type", "railway.light_rail|usage.main,railway.light_rail|service.siding,railway.light_rail|service.crossover",
-                           "--type-files", typemapPrefix + ".typ.xml," + typemapPrefix + "RailUsage.typ.xml"], cwd='netpatch')
-    if not os.path.exists("sbahn/BVG_VBB_bereichsscharf_20190603.zip"):
-        urllib.request.urlretrieve("https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2019.zip",
-                                   "sbahn/BVG_VBB_bereichsscharf_20190603.zip")
-    subprocess.check_call([sys.executable, os.path.join(os.environ["SUMO_HOME"], "tools", "import", "gtfs", "gtfs2pt.py"),
-                           "-c", "sbahn.gtfscfg"], cwd="sbahn")
-    subprocess.check_call([sumolib.checkBinary("netconvert"), "tk/tk.netccfg"])
+    if not options.skipnet:
+        subprocess.check_call([sumolib.checkBinary("netconvert"), "-c", "berlin.netccfg",
+                               "--output-prefix", "../sbahn/berlin-", "-o", "sbahn.net.xml.gz",
+                               "--keep-edges.by-type", "railway.light_rail|usage.main,railway.light_rail|service.siding,railway.light_rail|service.crossover,railway.rail|usage.main",
+                               "--remove-edges.by-vclass", "rail,rail_electric,rail_fast",
+                               "--type-files", typemapPrefix + ".typ.xml," + typemapPrefix + "RailUsage.typ.xml"], cwd='netpatch')
+    if options.osmpt:
+        subprocess.check_call([sys.executable, os.path.join(os.environ["SUMO_HOME"], "tools", "ptlines2flows.py"),
+            "-c", "sbahn.ptlfcfg"], cwd="sbahn")
+    else:
+        if not os.path.exists("sbahn/BVG_VBB_bereichsscharf_20190603.zip"):
+            urllib.request.urlretrieve("https://sumo.dlr.de/daily/GTFS_VBB_Juni-Dezember-2019.zip",
+                                       "sbahn/BVG_VBB_bereichsscharf_20190603.zip")
+        subprocess.check_call([sys.executable, os.path.join(os.environ["SUMO_HOME"], "tools", "import", "gtfs", "gtfs2pt.py"),
+                               "-c", "sbahn.gtfscfg"], cwd="sbahn")
+    if not options.sbahn and not options.skipnet:
+        subprocess.check_call([sumolib.checkBinary("netconvert"), "tk/tk.netccfg"])
 
 
 if __name__ == "__main__":

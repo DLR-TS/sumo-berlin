@@ -21,8 +21,8 @@
         <output-file value=".net.xml.gz"/>
         <output.street-names value="true"/>
         <output.original-names value="false"/>
-        <ptstop-output value="_stops.add.xml.gz"/>
-        <ptline-output value="_ptlines.xml.gz"/>
+        <ptstop-output value="stops.add.xml.gz"/>
+        <ptline-output value="ptlines.xml.gz"/>
     </output>
 
     <processing>
@@ -72,7 +72,7 @@
 
     <report>
         <verbose value="true"/>
-        <log value=".log"/>
+        <log value="netconvert.log"/>
     </report>
 
 </configuration>

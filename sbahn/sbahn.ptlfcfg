@@ -4,8 +4,8 @@
     <use-osm-routes value="True"/>
     <output-file value="berlin_pt.rou.xml"/>
     <period value="1200.0"/>
-    <ptlines-file value="berlin_ptlines.xml.gz"/>
-    <ptstops-file value="berlin_stops.add.xml.gz"/>
+    <ptlines-file value="berlin-ptlines.xml.gz"/>
+    <ptstops-file value="berlin-stops.add.xml.gz"/>
     <random-begin value="True"/>
     <types value="light_rail"/>
     <end value="10800"/>

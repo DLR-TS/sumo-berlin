@@ -1,5 +1,12 @@
 shape.txt
 tkshape.poly.xml
 *.net.xml.gz
-*_ptlines.xml.gz
-*_stops.add.xml.gz
+*ptlines.xml.gz
+*stops.add.xml.gz
+*.log
+sbahn/berlin_pt.rou.xml
+sbahn/stopinfos.xml
+sbahn/trips.trips.xml
+sbahn/trips.trips.xml.errorlog
+sbahn/vehroutes.xml
+
