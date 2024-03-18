@@ -16,8 +16,9 @@ def update():
     for poi in sumolib.xml.parse_fast("location_priorities.xml", "poi", ["lon", "lat"]):
         lon.append(float(poi.lon))
         lat.append(float(poi.lat))
+    # extra buffer to the east to include Straussberg Nord
     subprocess.check_call(["osmconvert", "osm/brandenburg-latest.osm.pbf", "-o=osm/bb.o5m",
-                           "-b=%s,%s,%s,%s" % (min(lon) - 0.01, min(lat) - 0.01, max(lon) + 0.01, max(lat) + 0.01)])
+                           "-b=%s,%s,%s,%s" % (min(lon) - 0.01, min(lat) - 0.01, max(lon) + 0.08, max(lat) + 0.01)])
     call = ["osmfilter", "osm/bb.o5m", "--keep-ways=highway= railway= cycleway= aeroway= waterway=",
             "--keep-nodes=", "--drop-relations=type=multipolygon route=hiking", "--drop-author",
             "--drop-tags=note= old_name= source= name:etymology:wikidata= wikipedia="]
