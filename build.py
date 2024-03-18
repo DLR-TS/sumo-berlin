@@ -87,10 +87,10 @@ def main():
     if not options.skipnet:
         subprocess.check_call([sumolib.checkBinary("netconvert"), "-c", "berlin.netccfg",
                                "--output-prefix", "../sbahn/berlin-", "-o", "sbahn.net.xml.gz",
-                               "--keep-edges.by-type", "railway.light_rail|usage.main,railway.light_rail|service.siding,railway.light_rail|service.crossover,railway.rail|usage.main,railway.rail|service.siding,railway.rail|service.crossover",
+                               "--keep-edges.by-type", "railway.light_rail|usage.main,railway.light_rail|service.siding,railway.light_rail|service.crossover,railway.rail|usage.main,railway.rail|service.siding,railway.rail|service.crossover,railway.construction|usage.main",
                                "--keep-edges.by-vclass", "rail_urban",
                                "--keep-edges.postload",  # patch permissions for mixed traffic edges first
-                               "--type-files", typemapPrefix + ".typ.xml," + typemapPrefix + "RailUsage.typ.xml"], cwd='netpatch')
+                               "--type-files", typemapPrefix + ".typ.xml," + typemapPrefix + "RailUsage.typ.xml,railDiscard.typ.xml"], cwd='netpatch')
     if options.osmpt:
         subprocess.check_call([sys.executable, os.path.join(os.environ["SUMO_HOME"], "tools", "ptlines2flows.py"),
             "-c", "sbahn.ptlfcfg"], cwd="sbahn")

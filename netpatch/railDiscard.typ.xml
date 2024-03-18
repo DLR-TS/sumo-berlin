@@ -3,4 +3,7 @@
     <type id="railway.light_rail|service.yard" discard="true"/>
     <type id="railway.rail|service.yard" discard="true"/>
 
+    <!-- some edges are in used by public transport lines -->
+    <type id="railway.construction"   numLanes="1" speed="13.89" priority="20"  oneway="true" allow="rail" discard="false"/>
+
 </types>
