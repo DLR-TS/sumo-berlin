@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="berlin-sbahn.net.xml.gz"/>
-        <additional-files value="berlin-stops.add.xml.gz,berlin_pt.rou.xml"/>
+        <additional-files value="berlin-stops.add.xml.gz,berlin_pt2.rou.xml"/>
         <ignore-route-errors value="false"/>
         <time-to-teleport value="3600"/>
     </input>

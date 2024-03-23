@@ -1,0 +1,13 @@
+<configuration>
+    <net-file value="berlin-sbahn.net.xml.gz"/>
+    <ptlines-file value="berlin-ptlines.patched.xml"/>
+    <ptstops-file value="berlin-stops.add.xml.gz"/>
+    <output-file value="berlin_pt2.rou.xml"/>
+    <period value="1200.0"/>
+    <end value="10800.0"/>
+    <join value="True"/>
+    <use-osm-routes value="True"/>
+    <random-begin value="True"/>
+    <types value="light_rail"/>
+    <human-readable-time value="True"/>
+</configuration>

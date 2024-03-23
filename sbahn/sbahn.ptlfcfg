@@ -9,4 +9,5 @@
     <random-begin value="True"/>
     <types value="light_rail"/>
     <end value="10800"/>
+    <join value="True"/>
 </configuration>
