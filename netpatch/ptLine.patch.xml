@@ -1,0 +1,9 @@
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="2015944" period="1200"/> <!-- S5 -->
+    <ptLine id="2015959" period="1200"/> <!-- S5 -->
+    <ptLine id="2422950" period="1200"/> <!-- S25 -->
+    <ptLine id="2422951" period="1200"/> <!-- S25 -->
+    <ptLine id="7794031" period="1200"/> <!-- S26 -->
+    <ptLine id="7794032" period="1200"/> <!-- S5 -->
+</ptLines>

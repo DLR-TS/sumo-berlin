@@ -8,6 +8,7 @@
     <input>
         <osm-files value="../osm/bb_filtered.osm.xml.gz"/>
         <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml,${SUMO_HOME}/data/typemap/osmNetconvertBicycle.typ.xml,railDiscard.typ.xml"/>
+        <ptline-files value="ptLine.patch.xml"/>
         <!--
         <node-files value="patch.nod.xml,patch_A39_B1.nod.xml"/>
         <edge-files value="patch.edg.xml,patch_A39_B1.edg.xml"/>
