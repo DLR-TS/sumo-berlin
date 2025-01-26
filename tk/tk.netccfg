@@ -7,8 +7,8 @@
 
     <input>
         <sumo-net-file value="../netpatch/berlin.net.xml.gz"/>
-        <ptstop-files value="../netpatch/berlin_stops.add.xml.gz"/>
-        <ptline-files value="../netpatch/berlin_ptlines.xml.gz"/>
+        <ptstop-files value="../netpatch/berlinstops.add.xml.gz"/>
+        <ptline-files value="../netpatch/berlinptlines.xml.gz"/>
     </input>
 
     <output>
