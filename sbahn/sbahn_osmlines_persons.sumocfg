@@ -6,8 +6,8 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="berlin-sbahn-stations.net.xml"/>
-        <additional-files value="berlin-stations_stops.add.xml,berlin_pt.rou.xml"/>
+        <net-file value="berlin-sbahn-stations.net.xml.gz"/>
+        <additional-files value="berlin-stops-stations.add.xml.gz,berlin_pt.rou.xml"/>
         <route-files value="persons.trips.xml"/>
     </input>
     <ignore-route-errors value="false"/>
@@ -15,5 +15,6 @@
     <time-to-teleport value="3600"/>
     <t value="true"/>
     <end value="10800"/>
+    <gui-settings-files value="viewsettings.xml"/>
 
 </configuration>

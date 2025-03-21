@@ -1,0 +1,15 @@
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="berlin-sbahn.net.xml.gz"/>
+        <node-files value="ped_access.nod.xml"/>
+        <edge-files value="ped_access.edg.xml"/>
+        <ptstop-files value="berlin-stops.add.xml.gz"/>
+    </input>
+
+    <output>
+        <output-file value="berlin-sbahn-stations.net.xml.gz"/>
+        <ptstop-output value="berlin-stops-stations.add.xml.gz"/>
+    </output>
+
+</configuration>
