@@ -12,7 +12,7 @@
     </input>
 
     <output>
-        <output-file value="net.net.xml.gz"/>
+        <output-file value="tk.net.xml.gz"/>
         <ptstop-output value="tk_stops.add.xml.gz"/>
         <ptline-output value="tk_ptlines.xml.gz"/>
     </output>

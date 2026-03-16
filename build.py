@@ -103,6 +103,7 @@ def main():
                                "-c", "sbahn.gtfscfg"], cwd="sbahn")
     if not options.sbahn and not options.skipnet:
         subprocess.check_call([sumolib.checkBinary("netconvert"), "tk/tk.netccfg"])
+    subprocess.check_call([os.path.join(os.environ["SUMO_HOME"], "tools", "net", "cut_net.py"), "-n", "tk/tk.net.xml.gz", "-j", "tk/Doerpfeldstr.geojson", "-o", "tk/Doerpfeldstr_raw.net.xml.gz"])
 
 
 if __name__ == "__main__":

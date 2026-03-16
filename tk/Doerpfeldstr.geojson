@@ -1,0 +1,43 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "coordinates": [
+          [
+            [
+              13.528759,
+              52.441921
+            ],
+            [
+              13.544808,
+              52.45041
+            ],
+            [
+              13.571972,
+              52.445435
+            ],
+            [
+              13.571285,
+              52.4413
+            ],
+            [
+              13.550512,
+              52.4268
+            ],
+            [
+              13.528759,
+              52.441921
+            ]
+          ]
+        ],
+        "type": "Polygon"
+      },
+      "properties": {
+        "name": "Ausschnitt Dörpfeldszenario"
+      },
+      "id": "79asd"
+    }
+  ]
+}
