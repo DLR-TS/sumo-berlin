@@ -105,6 +105,10 @@ def main():
         subprocess.check_call([sumolib.checkBinary("netconvert"), "tk/tk.netccfg"])
     subprocess.check_call([os.path.join(os.environ["SUMO_HOME"], "tools", "net", "cut_net.py"), "-n", "tk/tk.net.xml.gz", "-j", "tk/Doerpfeldstr.geojson", "-o", "tk/Doerpfeldstr_raw.net.xml.gz"])
 
+    subprocess.check_call([sumolib.checkBinary("netconvert"), "-s", "tk/Doerpfeldstr_raw.net.xml.gz", "--remove-edges.input-file", "tk/remove_edges.txt", "-o", "tk/Doerpfeldstr_removed.net.xml.gz"])
+    subprocess.check_call([sumolib.checkBinary("netconvert"), "-s", "../Doerpfeldstr/net.net.xml.gz", "--keep-edges.input-file", "tk/keep_edges.txt", "-o", "tk/Doerpfeldstr_keep.net.xml.gz"])
+    subprocess.check_call([sumolib.checkBinary("netconvert"), "-s", "tk/Doerpfeldstr_keep.net.xml.gz,tk/Doerpfeldstr_removed.net.xml.gz", "-n", "tk/joined.nod.xml", "-o", "tk/Doerpfeldstr_merged.net.xml.gz"])
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-16T21:31:29.094598+01:00 by Eclipse SUMO netedit v1_26_0+0630-9eccf635619
+<neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="merged.net.xml"/>
+    </input>
+
+    <output>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.avoid-overlap value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="1"/>
+    </pedestrian>
+
+</neteditConfiguration>
+-->
+
+<nodes version="1.20" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <join nodes="10814390397 12055907498 12055907537 12055907539 1906421964 cluster_10814390395_12055907538_12055907540_12055907541_#1more"/>
+    <join nodes="12055907542 12055907543 cluster1906421961_1906421962 cluster_12055907544_1906421962"/>
+    <join nodes="12055907481 12055907482 12057823086 12057823087 cluster_237254713_3234767440_5551021312_5551188640_#3more cluster_237254713_3234767440_5641118083_5641118084_#1more" type="priority"/>
+    <join nodes="12057823092 12060207703 257749657 cluster_257749657_5551021316"/>
+    <join nodes="12055907530 cluster_12060207723_237253947_3909915214_5551021320 cluster_237253947_3909915214"/>
+    <join nodes="12060207705 12060207715 12060207724 12060207725 cluster1906421955_cluster_237254117_237254438 cluster_12060207726_237254117_237254438_5551021422"/>
+    <join nodes="10833309642 12061851419 12061851445 cluster_150756867_8345251173"/>
+    <join nodes="12063669097 12063669098 cluster_12063669099_150756867_237252932_8345251168 cluster_237252932_8345251168"/>
+    <join nodes="12063669095 12063669096 cluster_12063669100_237253392_8345251169 cluster_237253392_8345251169"/>
+    <join nodes="10833309695 10833309697 12061851449 12061851450 12063669094 12063669162 cluster_220508530_8345251170_8345251174"/>
+    <join nodes="12063669091 12063669092 cluster_1597984723_5551188749_8345251171 cluster_1597984723_8345251171"/>
+    <join nodes="12061871119 12061871126 1884227387 94964457 cluster_1884227387_1884227390_1884227396_536402412_#2more"/>
+</nodes>
