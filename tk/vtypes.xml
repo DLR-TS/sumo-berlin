@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-22 19:33:06.339215 by Eclipse SUMO gtfs2pt.py v1_26_0+0746-88a02731206
+<configuration>
+    <gtfs value="gtfs-2024.zip"/>
+    <date value="20250310"/>
+    <network value="Doerpfeldstr_edit.net.xml.gz"/>
+    <tram-stop-length value="30.0"/>
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="bus" vClass="bus" color="orange"/>
+    <vType id="light_rail" vClass="rail_urban"/>
+    <vType id="tram" vClass="tram" length="30" color="red">
+        <param key="locomotiveLength" value="30"/>
+    </vType>
+</additional>

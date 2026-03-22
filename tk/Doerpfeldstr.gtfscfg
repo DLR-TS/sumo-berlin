@@ -1,0 +1,6 @@
+<configuration>
+    <gtfs value="gtfs-2024.zip"/>
+    <date value="20250310"/>
+    <network value="Doerpfeldstr_edit.net.xml.gz"/>
+    <tram-stop-length value="30.0"/>
+</configuration>
