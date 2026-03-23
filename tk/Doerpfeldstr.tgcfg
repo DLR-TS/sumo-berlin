@@ -1,0 +1,8 @@
+<configuration>
+    <tiles value="400"/>
+    <net value="Doerpfeldstr_edit.net.xml.gz"/>
+    <url value="berlin"/>
+    <reproject value="True"/>
+    <crop-margin value="1200,1100,100,300"/>
+    <background-factor value="0.8"/>
+</configuration>
