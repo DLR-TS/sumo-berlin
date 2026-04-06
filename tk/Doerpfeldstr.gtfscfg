@@ -3,4 +3,5 @@
     <date value="20250310"/>
     <network value="Doerpfeldstr_edit.net.xml.gz"/>
     <tram-stop-length value="30.0"/>
+    <vtype-output value=""/>
 </configuration>

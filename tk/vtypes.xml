@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-03-22 19:33:06.339215 by Eclipse SUMO gtfs2pt.py v1_26_0+0746-88a02731206
+<!-- generated on 2026-04-06 08:28:30.759238 by Eclipse SUMO gtfs2pt.py v1_26_0+1000-c71e510aa5d
 <configuration>
     <gtfs value="gtfs-2024.zip"/>
     <date value="20250310"/>
@@ -11,8 +11,9 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <vType id="bus" vClass="bus" color="orange"/>
-    <vType id="light_rail" vClass="rail_urban"/>
-    <vType id="tram" vClass="tram" length="30" color="red">
-        <param key="locomotiveLength" value="30"/>
+    <vType id="light_rail" vClass="rail_urban" color="green"/>
+    <vType id="tram" vClass="tram" length="28" color="red">
+        <param key="carriageLength" value="4"/>
+        <param key="carriageGap" value="0"/>
     </vType>
 </additional>
