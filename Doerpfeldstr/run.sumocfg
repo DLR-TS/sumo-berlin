@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-08T15:41:21.481773+01:00 by Eclipse SUMO sumo v1_26_0+1007-b942728ab9d
+<!-- generated on 2026-04-11T16:35:21.301604+01:00 by Eclipse SUMO sumo v1_26_0+1094-2f06448e26b
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="Doerpfeldstr_edit.net.xml.gz"/>
-        <route-files value="cars.rou.xml,bikes.rou.xml,peds.rou.xml"/>
+        <route-files value="cars_with_stops.rou.xml,bikes.rou.xml,peds.rou.xml"/>
         <additional-files value="vtypes.xml,gtfs_pt_stops.add.xml,gtfs_pt_vehicles.add.xml"/>
     </input>
+
+    <processing>
+        <tls.actuated.jam-threshold value="30"/>
+    </processing>
 
 </sumoConfiguration>
