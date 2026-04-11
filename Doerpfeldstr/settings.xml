@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-23 08:11:26.403443 by Eclipse SUMO tileGet.py v1_26_0+0754-304adf2922b
+  options: -c Doerpfeldstr.tgcfg
+-->
+
+<viewsettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/viewsettings_file.xsd">
+    <decal file="tile.jpg" centerX="2708.9853606015677" centerY="1028.0919284122065" width="2890.7309937424725" height="2780.5310226175934" layer="0"/>
+</viewsettings>

@@ -1,0 +1,5 @@
+*.rou.xml
+gtfs*.zip
+gtfs*.add.xml
+trips.trips.xml
+tile.jpg

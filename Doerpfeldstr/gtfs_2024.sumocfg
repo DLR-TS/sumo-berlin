@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-03-22T19:25:42.387451+01:00 by Eclipse SUMO sumo v1_26_0+0671-ff4ec946b20
+-->
+
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Doerpfeldstr_edit.net.xml.gz"/>
+        <additional-files value="vtypes.xml,gtfs_pt_stops.add.xml,gtfs_pt_vehicles.add.xml"/>
+    </input>
+
+</sumoConfiguration>
