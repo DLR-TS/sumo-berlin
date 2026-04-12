@@ -1,3 +1,9 @@
+bak
+fcd
+resources
+bzm_telraam_*
+telraam_*data.xml
+mismatch_*.xml
 *.rou.xml
 gtfs*.zip
 gtfs*.add.xml

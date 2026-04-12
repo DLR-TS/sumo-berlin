@@ -1,7 +1,5 @@
 <configuration>
     <net-file value="Doerpfeldstr_edit.net.xml.gz"/>
-    <route-files value="cars.rou.xml"/>
-    <output-file value="cars_with_stops.rou.xml"/>
     <duration value="120-300"/>
     <edges value="147053824#2,-178028204#9,-1072269112#0,166142947#1"/>
     <probability value="0.05"/>

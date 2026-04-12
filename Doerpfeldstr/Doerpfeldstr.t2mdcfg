@@ -1,0 +1,6 @@
+<configuration>
+    <net value="Doerpfeldstr_edit.net.xml.gz"/>
+    <geojson value="bzm_telraam_segments.geojson"/>
+    <csv value="bzm_telraam_2025_03.csv.gz"/>
+    <day value="2025-03-10"/>
+</configuration>
