@@ -15,11 +15,12 @@ using the segment midpoint. Bidirectional segments are matched to both the
 forward and reverse SUMO edges; left/right Telraam counts are assigned based
 on the angular alignment between the segment direction and each edge direction.
 
+The monthly CSV is downloaded automatically from berlin-zaehlt.de if not
+already present next to the script.
+
 Usage example:
   python tools/telraam2meandata.py \
       --net doe/Doerpfeldstr_edit.net.xml.gz \
-      --geojson doe/bzm_telraam_segments.geojson \
-      --csv doe/bzm_telraam_2025_03.csv.gz \
       --day 2025-03-05 \
       --output doe/telraam_2025-03-05.xml
 """
@@ -29,16 +30,19 @@ import json
 import math
 import os
 import sys
+import urllib.request
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
+
+TELRAAM_BASE_URL = "https://berlin-zaehlt.de/csv/"
 
 
 def parse_args():
     parser = sumolib.options.ArgumentParser(description=__doc__,
                                             formatter_class=sumolib.options.RawDescriptionHelpFormatter)
     parser.add_argument("-n", "--net", required=True, help="SUMO network file (.net.xml or .net.xml.gz)")
-    parser.add_argument("--geojson", required=True, help="Telraam segments GeoJSON file")
-    parser.add_argument("--csv", required=True, help="Telraam hourly CSV file (may be .gz)")
+    parser.add_argument("--geojson", default="bzm_telraam_segments.geojson",
+                        help="Telraam segments GeoJSON file")
     parser.add_argument("--day", required=True, help="Day to export, format YYYY-MM-DD")
     parser.add_argument("-o", "--output", required=True, help="Output meandata XML file")
     parser.add_argument("--radius", type=float, default=50.0,
@@ -148,6 +152,17 @@ def build_segment_map(net, geojson_path, radius):
     return mapping
 
 
+def ensure_file(filename):
+    """Return the path to filename next to the script, downloading it if absent."""
+    local_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+    if not os.path.exists(local_path):
+        url = TELRAAM_BASE_URL + filename
+        print(f"  Downloading {url} ...", file=sys.stderr)
+        urllib.request.urlretrieve(url, local_path)
+        print(f"  Saved to {local_path}", file=sys.stderr)
+    return local_path
+
+
 def load_day_data(csv_path, day, vtype):
     """
     Return a dict: {segment_id: {hour_int: {'lft': n, 'rgt': n}}}
@@ -216,10 +231,12 @@ def main():
     net = sumolib.net.readNet(args.net)
 
     print(f"Matching GeoJSON segments to network edges (radius={args.radius}m) ...", file=sys.stderr)
-    segment_map = build_segment_map(net, args.geojson, args.radius)
+    geojson_path = ensure_file(args.geojson)
+    segment_map = build_segment_map(net, geojson_path, args.radius)
 
     print(f"Loading CSV data for day {args.day} (vtype={args.vtype}) ...", file=sys.stderr)
-    day_data = load_day_data(args.csv, args.day, args.vtype)
+    csv_path = ensure_file(f"bzm_telraam_{args.day[:4]}_{args.day[5:7]}.csv.gz")
+    day_data = load_day_data(csv_path, args.day, args.vtype)
     print(f"  Found data for {len(day_data)} segments on {args.day}.", file=sys.stderr)
 
     print(f"Writing meandata to: {args.output}", file=sys.stderr)

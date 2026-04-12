@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <vType id="bus" vClass="bus" color="orange"/>
-    <vType id="light_rail" vClass="rail_urban" color="green"/>
-    <vType id="tram" vClass="tram" length="28" color="red">
+    <vType id="bicycle" vClass="bicycle" color="#ee7f00"/>
+    <vType id="delivery" vClass="delivery" color="#ffcc00"/>
+    <vType id="bus" vClass="bus" color="#af5c91"/>
+    <vType id="light_rail" vClass="rail_urban" color="#408335"/>
+    <vType id="tram" vClass="tram" length="28" color="#be1414">
         <param key="carriageLength" value="4"/>
         <param key="carriageGap" value="0"/>
     </vType>
