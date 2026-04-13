@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="Doerpfeldstr_edit.net.xml.gz"/>
-        <route-files value="cars_with_stops.rou.xml,bikes_sampled.rou.xml,delivery_with_stops.rou.xml,peds.rou.xml"/>
+        <route-files value="cars_with_stops.rou.xml,bikes_sampled.rou.xml,delivery_with_stops.rou.xml,ped_sampled.rou.xml"/>
         <additional-files value="vtypes.xml,gtfs_pt_stops.add.xml,gtfs_pt_vehicles.add.xml"/>
     </input>
 

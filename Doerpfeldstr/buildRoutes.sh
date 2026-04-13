@@ -18,4 +18,7 @@ python $SUMO_HOME/tools/routeSampler.py -r delivery.rou.xml -d telraam_heavy_dat
 python $SUMO_HOME/tools/route/addStops2Routes.py -c Doerpfeldstr.as2rcfg --route-files delivery_sampled.rou.xml -o delivery_with_stops.rou.xml -t vtypes.xml
 # pedestrians
 python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 1 --insertion-density 10 -r peds.rou.xml -b 50400 -e 54000 --vehicle-class pedestrian --prefix ped --pedestrians --max-distance 2000 --persontrip.walk-opposite-factor 0.8
+python ./telraam2meandata.py -c Doerpfeldstr.t2mdcfg -o telraam_ped_data.xml --vtype ped
+python $SUMO_HOME/tools/routeSampler.py -r peds.rou.xml -d telraam_ped_data.xml -o ped_sampled.rou.xml --prefix ped_ --mismatch-output mismatch_ped.xml --pedestrians --attributes "type=\"pedestrian\""
+
 popd

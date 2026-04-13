@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vType id="pedestrian" vClass="pedestrian" color="#c68642"/>
     <vType id="bicycle" vClass="bicycle" color="#ee7f00"/>
     <vType id="delivery" vClass="delivery" color="#ffcc00"/>
     <vType id="bus" vClass="bus" color="#af5c91"/>
