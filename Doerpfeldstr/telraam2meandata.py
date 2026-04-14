@@ -35,6 +35,7 @@ sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
 
 TELRAAM_BASE_URL = "https://berlin-zaehlt.de/csv/"
+VMK_FILENAME = "bzm_vmk_2023.json"
 
 
 def parse_args():
@@ -129,10 +130,11 @@ def build_segment_map(net, geojson_path, radius):
     unmatched = 0
     for feature in collection["features"]:
         seg_id = str(feature["properties"]["segment_id"])
-        lines = feature["geometry"]["coordinates"]  # MultiLineString
-
-        # Flatten all lines into one polyline for direction/midpoint computation
-        all_lonlat = [pt for line in lines for pt in line]
+        geom = feature["geometry"]
+        if geom["type"] == "MultiLineString":
+            all_lonlat = [pt for line in geom["coordinates"] for pt in line]
+        else:  # LineString
+            all_lonlat = geom["coordinates"]
         try:
             all_xy = [net.convertLonLat2XY(pt[0], pt[1]) for pt in all_lonlat]
         except Exception:
@@ -150,6 +152,28 @@ def build_segment_map(net, geojson_path, radius):
         print(f"  {unmatched} segments had no nearby edge and were skipped.", file=sys.stderr)
     print(f"  Matched {len(mapping)} segments to SUMO edges.", file=sys.stderr)
     return mapping
+
+
+def load_vmk_data(json_path, vtype):
+    """
+    Return a dict {segment_id: count} from the VMK annual average GeoJSON.
+    count is the total for both directions combined.
+    Returns an empty dict if vtype is not available in the VMK data.
+    """
+    with open(json_path) as f:
+        collection = json.load(f)
+    available = collection.get("properties", {}).get("columns", [])
+    if vtype not in available:
+        print(f"  vtype '{vtype}' not in VMK data (available: {available}), skipping VMK.",
+              file=sys.stderr)
+        return {}
+    data = {}
+    for feature in collection["features"]:
+        props = feature["properties"]
+        count = props.get(vtype)
+        if count is not None and count > 0:
+            data[str(props["segment_id"])] = count
+    return data
 
 
 def ensure_file(filename):
@@ -184,7 +208,7 @@ def load_day_data(csv_path, day, vtype):
     return data
 
 
-def write_meandata(output_path, day_data, segment_map, interval_id):
+def write_meandata(output_path, day_data, segment_map, interval_id, vmk_data=None, vmk_map=None):
     """Write a meandata XML file with one <interval> per hour."""
     # Collect all hours present in the data
     all_hours = sorted({h for seg in day_data.values() for h in seg})
@@ -221,6 +245,28 @@ def write_meandata(output_path, day_data, segment_map, interval_id):
                     out.write(f'        <edge id="{eid}" entered="{int(count)}" />\n')
 
             out.write("    </interval>\n")
+
+        if vmk_data and vmk_map:
+            # VMK annual average: one full-day interval, count split evenly per direction
+            out.write(f'    <interval begin="0" end="86400" id="{interval_id}_vmk">\n')
+            edge_totals = {}
+            edge_hits = {}
+            for seg_id, count in vmk_data.items():
+                match = vmk_map.get(seg_id)
+                if match is None:
+                    continue
+                fwd, bwd = match
+                half = count / 2.0
+                for eid in (fwd, bwd):
+                    if eid:
+                        edge_totals[eid] = edge_totals.get(eid, 0) + half
+                        edge_hits[eid] = edge_hits.get(eid, 0) + 1
+            for eid in sorted(edge_totals):
+                avg = edge_totals[eid] / edge_hits[eid]
+                if avg > 0:
+                    out.write(f'        <edge id="{eid}" entered="{int(avg)}" />\n')
+            out.write("    </interval>\n")
+
         out.write("</meandata>\n")
 
 
@@ -239,8 +285,14 @@ def main():
     day_data = load_day_data(csv_path, args.day, args.vtype)
     print(f"  Found data for {len(day_data)} segments on {args.day}.", file=sys.stderr)
 
+    print(f"Matching VMK segments to network edges ...", file=sys.stderr)
+    vmk_path = ensure_file(VMK_FILENAME)
+    vmk_map = build_segment_map(net, vmk_path, args.radius)
+    vmk_data = load_vmk_data(vmk_path, args.vtype)
+    print(f"  Found VMK data for {len(vmk_data)} segments.", file=sys.stderr)
+
     print(f"Writing meandata to: {args.output}", file=sys.stderr)
-    write_meandata(args.output, day_data, segment_map, args.interval_id)
+    write_meandata(args.output, day_data, segment_map, args.interval_id, vmk_data, vmk_map)
     print("Done.", file=sys.stderr)
 
 
