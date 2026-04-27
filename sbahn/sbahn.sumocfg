@@ -10,4 +10,19 @@
         <additional-files value="vtypes.xml,sbahn_stops.add.xml.gz,sbahn_vehicles.add.xml.gz"/>
     </input>
 
+    <processing>
+        <time-to-teleport value="1800"/>
+        <time-to-teleport.railsignal-deadlock value="300"/>
+    </processing>
+
+    <report>
+        <duration-log.statistics value="true"/>
+    </report>
+
+    <railsignal.max-block-length value="5e5"/>
+    <H value="true"/>
+    <log value="log"/>
+    <stop-output value="stopinfos.xml"/>
+    <tripinfo-output value="tripinfos.xml"/>
+
 </configuration>
