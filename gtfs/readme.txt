@@ -1,3 +1,3 @@
 GTFS-Fahrplandaten für den Bereich des Verkehrsverbunds Berlin Brandenburg VBB.
-Bezogen von https://www.vbb.de/unsere-themen/vbbdigital/api-entwicklerinfos/datensaetze
+https://daten.berlin.de/datensaetze/vbb-fahrplandaten-via-gtfs
 Lizenz: CC-BY 4.0
