@@ -1,9 +1,11 @@
 <configuration>
     <net-file value="berlin-sbahn-stations.net.xml.gz"/>
-    <additional-files value="berlin-stops-stations.add.xml.gz"/>
     <output-trip-file value="persons.trips.xml"/>
     <persontrips value="True"/>
-    <from-stops value="busStop"/>
-    <to-stops value="busStop"/>
     <trip-attributes value="modes='public'"/>
+    <min-distance value="100.0"/>
+    <no-validate value="True"/>
+    <begin value="8:0:0"/>
+    <end value="9:0:0"/>
+    <insertion-rate value="240000"/>
 </configuration>

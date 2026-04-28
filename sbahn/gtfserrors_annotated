@@ -1,0 +1,11 @@
+S Charlottenburg Bhf only has a stop in the eastbound direction. 
+In the early morning and late evening the S42 is inserted on that stop in the
+westbound direction before continuning to S Halensee.
+The detour arises when starting in the wrong direction and driving all the way
+around the ring to reach Halensee from the other side.
+A workaround would be to add a custom stop at Charlottenburg to load with --stops
+
+Removing trip 292138352 (light_rail): detour (factor 21.73) to stop index 1, fromPos=16548.78,23799.08 toPos=15582.62,22832.46 (airLine=1366.69 path=29696.82)
+Removing trip 292138352 (light_rail): detour (factor 7.06) to stop index 2, fromPos=15582.62,22832.46 toPos=16220.08,21997.60 (airLine=1050.41 path=7414.10)
+Removing trip 292138368 (light_rail): detour (factor 21.62) to stop index 1, fromPos=16542.57,23814.92 toPos=15582.62,22832.46 (airLine=1373.58 path=29697.59)
+Removing trip 292138368 (light_rail): detour (factor 7.06) to stop index 2, fromPos=15582.62,22832.46 toPos=16220.08,21997.60 (airLine=1050.41 path=7414.10)
