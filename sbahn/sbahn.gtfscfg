@@ -9,10 +9,13 @@
     <network-split-vclass value="True"/>
     <additional-output value="sbahn_stops.add.xml.gz"/>
     <route-output value="sbahn_vehicles.add.xml.gz"/>
+    <poi-output value="pois.xml"/>
     <center-stops value="True"/>
     <modes value="light_rail"/>
     <stops value="berlin-stops.add.xml.gz"/>
     <remove-detour-factor value="5"/>
     <rail-priority-factor value="5"/>
-    <poi-output value="pois.xml"/>
+    <warn-unmapped value="True"/>
+    <join-blocks value="True"/>
+    <parking-threshold value="1800"/>
 </configuration>
