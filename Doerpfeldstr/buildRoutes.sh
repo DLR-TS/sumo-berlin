@@ -6,8 +6,8 @@ python $SUMO_HOME/tools/import/gtfs/gtfs2pt.py -c Doerpfeldstr.gtfscfg
 #python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 8 -p 1  -r cars_nopref.rou.xml --prefix veh --lanes -l --min-distance 300 --remove-loops
 python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 8 -p 1  -r cars.rou.xml --prefix veh --lanes -l --min-distance 300 --remove-loops -a preferences.xml
 python ./telraam2meandata.py -c Doerpfeldstr.t2mdcfg -o telraam_car_data.xml
-python $SUMO_HOME/tools/routeSampler.py -r cars.rou.xml -d telraam_car_data.xml -o cars_sampled.rou.xml --prefix car_ --mismatch-output mismatch_car.xml --timeline TGw2_PKW --merge-strategy ignore --turn-files main_relations --optimize full
-# python $SUMO_HOME/tools/routeSampler.py -r cars.rou.xml -d telraam_car_data.xml -o cars_sampled.rou.xml --prefix car_ --mismatch-output mismatch_car.xml --timeline TGw2_PKW --merge-strategy ignore --turn-files main_relations
+python $SUMO_HOME/tools/routeSampler.py -r cars.rou.xml -d telraam_car_data.xml -o cars_sampled.rou.xml --prefix car_ --mismatch-output mismatch_car.xml --timeline TGw2_PKW --merge-strategy ignore --turn-files main_relations.xml --optimize full
+# python $SUMO_HOME/tools/routeSampler.py -r cars.rou.xml -d telraam_car_data.xml -o cars_sampled.rou.xml --prefix car_ --mismatch-output mismatch_car.xml --timeline TGw2_PKW --merge-strategy ignore --turn-files main_relations.xml
 python $SUMO_HOME/tools/countEdgeUsage.py cars_sampled.rou.xml -i
 python $SUMO_HOME/tools/route/addStops2Routes.py -c Doerpfeldstr.as2rcfg --route-files cars_sampled.rou.xml -o cars_with_stops.rou.xml
 # bikes
@@ -30,7 +30,7 @@ popd
 # plain 47 teleports, 90359 vehicles
 # --fringe-junctions 4757 teleports, 80236 vehicle
 # --fringe-factor 2 --fringe-junctions 20444 teleports 101019 vehicles
-# --turn-files main_relations 21 teleports, 88017 vehicles
+# --turn-files main_relations.xml 21 teleports, 88017 vehicles
 # -a preferences.xml 38 teleports, 88800 vehicles
 # turn-files + preferences 16 teleports, 86777 vehicles, scale 0.6: 556 teleports, 104132 vehicles
 
