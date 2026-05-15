@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2026-04-15T15:05:17.947142+01:00 by Eclipse SUMO netedit v1_26_0+1108-0daacfafc95
+-->
+
+<data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
+    <interval id="Doerpfeldstr_turns" begin="0.00" end="86400.00">
+        <!-- S Adlershof -->
+        <edgeRelation from="318210354#0" to="206889086#2" probability="0.1"/> <!-- outbound right -->
+        <edgeRelation from="318210354#0" to="72230304#2" probability="0.8"/> <!-- outbound straight -->
+        <edgeRelation from="318210354#0" to="-679901152#1" probability="0.1"/> <!-- outbound left -->
+        <edgeRelation from="318210357#0" to="-679901152#1" probability="0.1"/> <!-- inbound right -->
+        <edgeRelation from="318210357#0" to="40191607#2" probability="0.8"/> <!-- inbound straight -->
+        <edgeRelation from="318210357#0" to="206889086#2" probability="0.1"/> <!-- inbound left -->
+        <!-- Adlergestell / Glienicker Weg -->
+        <edgeRelation from="977639652#1" to="152839434#2" probability="0.1"/> <!-- outbound right -->
+        <edgeRelation from="977639652#1" to="39969574#2" probability="0.8"/> <!-- outbound straight -->
+        <edgeRelation from="977639652#1" to="27087586#2" probability="0.1"/> <!-- outbound left -->
+        <edgeRelation from="192204854#0" to="27087586#2" probability="0.1"/> <!-- inbound right -->
+        <edgeRelation from="192204854#0" to="986672064#2" probability="0.8"/> <!-- inbound straight -->
+        <edgeRelation from="192204854#0" to="152839434#2" probability="0.1"/> <!-- inbound left -->
+    </interval>
+</data>

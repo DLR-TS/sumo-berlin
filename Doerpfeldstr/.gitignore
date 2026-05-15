@@ -1,11 +1,13 @@
-bak
-fcd
-resources
+/bak
+/fcd
+/input
+/resources
 bzm_vmk_*
 bzm_telraam_*
 telraam_*data.xml
 mismatch_*.xml
 *.rou.xml
+*.departsAndArrivals.xml
 gtfs*.zip
 gtfs*.add.xml
 trips.trips.xml

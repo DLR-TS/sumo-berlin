@@ -3,16 +3,20 @@ pushd $(dirname $0)
 # public transport
 python $SUMO_HOME/tools/import/gtfs/gtfs2pt.py -c Doerpfeldstr.gtfscfg
 # cars
-python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 8 -p 3  -r cars.rou.xml -b 50400 -e 54000 --vehicle-class passenger --vclass passenger --prefix veh --allow-fringe.min-length 1000 --lanes  -L -l --min-distance 300 --remove-loops
+#python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 8 -p 1  -r cars_nopref.rou.xml --prefix veh --lanes -l --min-distance 300 --remove-loops
+python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 8 -p 1  -r cars.rou.xml --prefix veh --lanes -l --min-distance 300 --remove-loops -a preferences.xml
 python ./telraam2meandata.py -c Doerpfeldstr.t2mdcfg -o telraam_car_data.xml
-python $SUMO_HOME/tools/routeSampler.py -r cars.rou.xml -d telraam_car_data.xml -o cars_sampled.rou.xml --prefix car_ --mismatch-output mismatch_car.xml --timeline TGw2_PKW --merge-strategy ignore
+python $SUMO_HOME/tools/routeSampler.py -r cars.rou.xml -d telraam_car_data.xml -o cars_sampled.rou.xml --prefix car_ --mismatch-output mismatch_car.xml --timeline TGw2_PKW --merge-strategy ignore --turn-files main_relations --optimize full
+# python $SUMO_HOME/tools/routeSampler.py -r cars.rou.xml -d telraam_car_data.xml -o cars_sampled.rou.xml --prefix car_ --mismatch-output mismatch_car.xml --timeline TGw2_PKW --merge-strategy ignore --turn-files main_relations
+python $SUMO_HOME/tools/countEdgeUsage.py cars_sampled.rou.xml -i
 python $SUMO_HOME/tools/route/addStops2Routes.py -c Doerpfeldstr.as2rcfg --route-files cars_sampled.rou.xml -o cars_with_stops.rou.xml
 # bikes
-python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 10 -p 5  -r bikes.rou.xml -b 50400 -e 54000 --vehicle-class bicycle --vclass bicycle --prefix  bike --prefix "b" --allow-fringe.min-length 1000 --lanes  -L -l
+python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 10 -p 5  -r bikes.rou.xml -b 50400 -e 54000 --vehicle-class bicycle --vclass bicycle --prefix  bike --prefix "b" --lanes  -L -l
 python ./telraam2meandata.py -c Doerpfeldstr.t2mdcfg -o telraam_bike_data.xml --vtype bike
 python $SUMO_HOME/tools/routeSampler.py -r bikes.rou.xml -d telraam_bike_data.xml -o bikes_sampled.rou.xml --prefix bike_ --mismatch-output mismatch_bike.xml --attributes "type=\"bicycle\""
 # delivery
-python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 8 -p 8  -r delivery.rou.xml -b 50400 -e 54000 --vehicle-class delivery --vclass delivery --prefix deliv --allow-fringe.min-length 1000 --lanes  -L -l --min-distance 300 --remove-loops
+python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 8 -p 8  -r delivery.rou.xml -b 50400 -e 54000 --vehicle-class delivery --vclass delivery --prefix deliv --lanes  -L -l --min-distance 300 --remove-loops
+# python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 8 -p 8  -r delivery.rou.xml -b 50400 -e 54000 --vehicle-class delivery --vclass delivery --prefix deliv --lanes  -L -l --min-distance 300 --remove-loops -a preferences.xml
 python ./telraam2meandata.py -c Doerpfeldstr.t2mdcfg -o telraam_heavy_data.xml --vtype heavy
 python $SUMO_HOME/tools/routeSampler.py -r delivery.rou.xml -d telraam_heavy_data.xml -o delivery_sampled.rou.xml --prefix delivery_ --mismatch-output mismatch_delivery.xml --attributes "type=\"delivery\"" --timeline TGw_LKW --merge-strategy ignore
 python $SUMO_HOME/tools/route/addStops2Routes.py -c Doerpfeldstr.as2rcfg --route-files delivery_sampled.rou.xml -o delivery_with_stops.rou.xml -t vtypes.xml
@@ -22,3 +26,11 @@ python ./telraam2meandata.py -c Doerpfeldstr.t2mdcfg -o telraam_ped_data.xml --v
 python $SUMO_HOME/tools/routeSampler.py -r peds.rou.xml -d telraam_ped_data.xml -o ped_sampled.rou.xml --prefix ped_ --mismatch-output mismatch_ped.xml --pedestrians --attributes "type=\"pedestrian\""
 
 popd
+
+# plain 47 teleports, 90359 vehicles
+# --fringe-junctions 4757 teleports, 80236 vehicle
+# --fringe-factor 2 --fringe-junctions 20444 teleports 101019 vehicles
+# --turn-files main_relations 21 teleports, 88017 vehicles
+# -a preferences.xml 38 teleports, 88800 vehicles
+# turn-files + preferences 16 teleports, 86777 vehicles, scale 0.6: 556 teleports, 104132 vehicles
+
