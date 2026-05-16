@@ -31,6 +31,9 @@ import math
 import os
 import sys
 import urllib.request
+
+import shapely
+
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
 
@@ -66,66 +69,55 @@ def segment_direction(coords):
     return (dx / length, dy / length)
 
 
-def edge_direction(edge):
-    """Return a unit direction vector along a SUMO edge (XY)."""
-    shape = edge.getShape()
-    return segment_direction(shape)
-
-
-def midpoint_xy(coords):
-    """Return the XY midpoint of a list of (x, y) pairs."""
-    mid_idx = len(coords) // 2
-    x = (coords[mid_idx - 1][0] + coords[mid_idx][0]) / 2 if len(coords) > 1 else coords[0][0]
-    y = (coords[mid_idx - 1][1] + coords[mid_idx][1]) / 2 if len(coords) > 1 else coords[0][1]
-    return x, y
-
-
-def reverse_edge_id(edge_id):
-    """Return the ID of the edge in the opposite direction."""
-    if edge_id.startswith("-"):
-        return edge_id[1:]
-    return "-" + edge_id
-
-
-def match_segment(net, geo_coords_xy, seg_dir, radius):
+def match_segment(net, geo_coords_xy, seg_dir, radius, vclass):
     """
     Find the best matching SUMO edge for a segment and return a dict:
       { 'forward': edge_id_aligned_with_seg_dir,
         'backward': edge_id_opposite_to_seg_dir }
     Either value may be None if no edge is found or exists.
     """
-    mx, my = midpoint_xy(geo_coords_xy)
-    candidates = net.getNeighboringEdges(mx, my, r=radius)
-    if not candidates:
+    candidates = sum([net.getNeighboringEdges(x, y, r=radius) for x, y in geo_coords_xy], [])
+    buffered = shapely.LineString(geo_coords_xy).buffer(20)
+    overlap_candidates = []
+    for edge, _ in candidates:
+        edge_buffer = shapely.LineString(edge.getShape()).buffer(20)
+        inter = buffered.intersection(edge_buffer).area
+        if edge.allows(vclass) and (inter / edge_buffer.area > 0.5 or inter / buffered.area > 0.5):
+            overlap_candidates.append((edge, inter / buffered.union(edge_buffer).area))
+    if not overlap_candidates:
         return None
 
-    # pick the nearest edge
-    nearest_edge, _ = sorted(candidates, key=lambda x: x[1])[0]
-    e_dir = edge_direction(nearest_edge)
+    overlap_candidates.sort(key=lambda x: -x[1])
+    best_edge = overlap_candidates[0][0]
+    e_dir = segment_direction(best_edge.getShape())
     alignment = seg_dir[0] * e_dir[0] + seg_dir[1] * e_dir[1]
 
-    # alignment > 0  => nearest edge runs in the same direction as the segment
+    reverse = None
+    edge_id = best_edge.getID()
+    reverse_id = edge_id[1:] if edge_id.startswith("-") else "-" + edge_id
+    if net.hasEdge(reverse_id):
+        reverse = net.getEdge(reverse_id)
+    if reverse is None:
+        for edge, _ in overlap_candidates[1:]:
+            rev_dir = segment_direction(edge.getShape())
+            rev_alignment = seg_dir[0] * rev_dir[0] + seg_dir[1] * rev_dir[1]
+            if rev_alignment * alignment < 0:
+                reverse = edge
+                break
+    # alignment > 0  => best edge runs in the same direction as the segment
     if alignment >= 0:
-        fwd_id = nearest_edge.getID()
-        bwd_id = reverse_edge_id(fwd_id)
-        if not net.hasEdge(bwd_id):
-            bwd_id = None
-    else:
-        bwd_id = nearest_edge.getID()
-        fwd_id = reverse_edge_id(bwd_id)
-        if not net.hasEdge(fwd_id):
-            fwd_id = None
-    return fwd_id, bwd_id
+        return best_edge.getID(), reverse.getID() if reverse else None
+    return reverse.getID() if reverse else None, best_edge.getID()
 
 
-def build_segment_map(net, geojson_path, radius):
+def build_segment_map(net, geojson_path, radius, vtype):
     """
     Return a dict mapping segment_id (str) -> match dict from match_segment().
     Only segments with at least one matched edge are included.
     """
     with open(geojson_path) as f:
         collection = json.load(f)
-
+    vclass = {"car": "passenger", "ped": "pedestrian", "bike": "bicycle", "heavy": "delivery"}.get(vtype)
     mapping = {}
     unmatched = 0
     for feature in collection["features"]:
@@ -142,7 +134,7 @@ def build_segment_map(net, geojson_path, radius):
             continue
 
         seg_dir = segment_direction(all_xy)
-        match = match_segment(net, all_xy, seg_dir, radius)
+        match = match_segment(net, all_xy, seg_dir, radius, vclass)
         if match is None:
             unmatched += 1
             continue
@@ -258,11 +250,15 @@ def write_meandata(output_path, day_data, segment_map, interval_id, vmk_data=Non
                 fwd, bwd = match
                 half = count / 2.0
                 for eid in (fwd, bwd):
+                    if eid in ("-361178576#1", "361178576#1"):
+                        print(eid, count, seg_id)
                     if eid:
                         edge_totals[eid] = edge_totals.get(eid, 0) + half
                         edge_hits[eid] = edge_hits.get(eid, 0) + 1
             for eid in sorted(edge_totals):
                 avg = edge_totals[eid] / edge_hits[eid]
+                if int(avg) == 11782:
+                    print(eid, edge_totals[eid], edge_hits[eid])
                 if avg > 0:
                     out.write(f'        <edge id="{eid}" entered="{int(avg)}" />\n')
             out.write("    </interval>\n")
@@ -278,7 +274,7 @@ def main():
 
     print(f"Matching GeoJSON segments to network edges (radius={args.radius}m) ...", file=sys.stderr)
     geojson_path = ensure_file(args.geojson)
-    segment_map = build_segment_map(net, geojson_path, args.radius)
+    segment_map = build_segment_map(net, geojson_path, args.radius, args.vtype)
 
     print(f"Loading CSV data for day {args.day} (vtype={args.vtype}) ...", file=sys.stderr)
     csv_path = ensure_file(f"bzm_telraam_{args.day[:4]}_{args.day[5:7]}.csv.gz")
@@ -287,7 +283,7 @@ def main():
 
     print(f"Matching VMK segments to network edges ...", file=sys.stderr)
     vmk_path = ensure_file(VMK_FILENAME)
-    vmk_map = build_segment_map(net, vmk_path, args.radius)
+    vmk_map = build_segment_map(net, vmk_path, args.radius, args.vtype)
     vmk_data = load_vmk_data(vmk_path, args.vtype)
     print(f"  Found VMK data for {len(vmk_data)} segments.", file=sys.stderr)
 
