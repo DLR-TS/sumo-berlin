@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-04-11T16:35:21.301604+01:00 by Eclipse SUMO sumo v1_26_0+1094-2f06448e26b
+<!-- generated on 2026-05-16T17:59:00.726908+01:00 by Eclipse SUMO GUI v1_26_0+1616-c90c1dc4a14
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -11,8 +11,16 @@
         <additional-files value="vtypes.xml,gtfs_pt_stops.add.xml,gtfs_pt_vehicles.add.xml"/>
     </input>
 
+    <output>
+        <edgedata-output value="edgedata.xml"/>
+    </output>
+
     <processing>
         <tls.actuated.jam-threshold value="30"/>
     </processing>
+
+    <report>
+        <duration-log.statistics value="true"/>
+    </report>
 
 </sumoConfiguration>

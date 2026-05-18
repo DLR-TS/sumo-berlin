@@ -1,9 +1,14 @@
 <meandata>
     <interval begin="0" end="86400" id="telraam_vmk">
         <edge id="24152326#1" entered="3000" /> <!-- Anna-Seghers-Str. von der Doe Richtung Osten -->
-        <edge id="1093045352#2" entered="2000" /> <!-- Ottomar-Geschke-Str noerdlich der Kreuzung am S Spindlerfeld-->
-        <edge id="-1093045352#2" entered="2000" /> <!-- Ottomar-Geschke-Str noerdlich der Kreuzung am S Spindlerfeld-->
+        <edge id="1093045352#2" entered="1000" /> <!-- Ottomar-Geschke-Str noerdlich der Kreuzung am S Spindlerfeld-->
+        <edge id="-1093045352#3" entered="1000" /> <!-- Ottomar-Geschke-Str noerdlich der Kreuzung am S Spindlerfeld-->
         <edge id="-99157761#1" entered="2000" /> <!-- Nipkowstr. kurz vor Glienicker Weg -->
         <edge id="1453392375" entered="2000" /> <!-- Nipkowstr. kurz vor Glienicker Weg -->
+        <edge id="-35554225#4" entered="2000" /> <!-- Wassermannstr. kurz vor Glienicker Weg -->
+        <edge id="35554225#3" entered="2000" /> <!-- Wassermannstr. kurz vor Glienicker Weg -->
+        <edge id="408709154#0" entered="2000" /> <!-- Nipkowstr. östlich Glienicker Weg -->
+        <edge id="-408709154#2" entered="2000" /> <!-- Nipkowstr. östlich Glienicker Weg -->
+        <edge id="-26842499#5" entered="500" /> <!-- Pestalozzistr -->
     </interval>
 </meandata>

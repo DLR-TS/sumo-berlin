@@ -5,13 +5,6 @@
 
 <data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/datamode_file.xsd">
     <interval id="Doerpfeldstr_turns" begin="0.00" end="86400.00">
-        <!-- S Adlershof -->
-        <edgeRelation from="318210354#0" to="206889086#2" probability="0.1"/> <!-- outbound right -->
-        <edgeRelation from="318210354#0" to="72230304#2" probability="0.8"/> <!-- outbound straight -->
-        <edgeRelation from="318210354#0" to="-679901152#1" probability="0.1"/> <!-- outbound left -->
-        <edgeRelation from="318210357#0" to="-679901152#1" probability="0.1"/> <!-- inbound right -->
-        <edgeRelation from="318210357#0" to="40191607#2" probability="0.8"/> <!-- inbound straight -->
-        <edgeRelation from="318210357#0" to="206889086#2" probability="0.1"/> <!-- inbound left -->
         <!-- Adlergestell / Glienicker Weg -->
         <edgeRelation from="977639652#1" to="152839434#2" probability="0.1"/> <!-- outbound right -->
         <edgeRelation from="977639652#1" to="39969574#2" probability="0.8"/> <!-- outbound straight -->
@@ -19,5 +12,15 @@
         <edgeRelation from="192204854#0" to="27087586#2" probability="0.1"/> <!-- inbound right -->
         <edgeRelation from="192204854#0" to="986672064#2" probability="0.8"/> <!-- inbound straight -->
         <edgeRelation from="192204854#0" to="152839434#2" probability="0.1"/> <!-- inbound left -->
+        <edgeRelation from="190928926#0" to="986672064#2" probability="0.1"/> <!-- towards motorway right -->
+        <edgeRelation from="190928926#0" to="152839434#2" probability="0.8"/> <!-- towards motorway straight -->
+        <edgeRelation from="190928926#0" to="39969574#2" probability="0.1"/> <!-- towards motorway left -->
+        <edgeRelation from="10735918" to="39969574#2#2" probability="0.1"/> <!-- from motorway right -->
+        <edgeRelation from="10735918" to="27087586#2" probability="0.8"/> <!-- from motorway straight -->
+        <edgeRelation from="10735918" to="986672064#2" probability="0.1"/> <!-- from motorway left -->
+        <!-- Koellnischer Platz -->
+        <edgeRelation from="853248690#0" to="152839442#2" probability="0.7"/> <!-- from Gruenauer Str right -->
+        <edgeRelation from="853248690#0" to="1120743511#1" probability="0.1"/> <!-- from Gruenauer Str straight -->
+        <edgeRelation from="853248690#0" to="26708309#3" probability="0.2"/> <!-- from Gruenauer Str left -->
     </interval>
 </data>
