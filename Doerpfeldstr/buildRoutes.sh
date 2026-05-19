@@ -2,10 +2,11 @@
 pushd $(dirname $0)
 # public transport
 python $SUMO_HOME/tools/import/gtfs/gtfs2pt.py -c Doerpfeldstr.gtfscfg
+python ./ptPersons.py gtfs_pt_vehicles.add.xml 
 # parking
 python $SUMO_HOME/tools/generateParkingAreas.py -n Doerpfeldstr_edit.net.xml.gz --edge-type.keep highway.residential -o parkingAreas.add.xml
-python $SUMO_HOME/tools/route/addStops2Routes.py -n Doerpfeldstr_edit.net.xml.gz --parking-areas parkingAreas.xml -o parking.rou.xml -d 100000 --rel-occupancy 0.8 --color '#505050'
-sed 's/depart="0"/depart="6:0:0"/' parking.xml > parking6.rou.xml
+python $SUMO_HOME/tools/route/addStops2Routes.py -n Doerpfeldstr_edit.net.xml.gz --parking-areas parkingAreas.add.xml -o parking.rou.xml -d 100000 --rel-occupancy 0.8 --color '#505050'
+sed 's/depart="0"/depart="6:0:0"/' parking.rou.xml > parking6.rou.xml
 # cars
 python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz --seed 42 --fringe-factor 8 -p 1  -r cars.rou.xml --prefix veh --lanes -l --min-distance 300 --remove-loops -a preferences.xml
 python ./telraam2meandata.py -c Doerpfeldstr.t2mdcfg -o telraam_car_data.xml
