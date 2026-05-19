@@ -10,5 +10,6 @@ mismatch_*.xml
 *.departsAndArrivals.xml
 gtfs*.zip
 gtfs*.add.xml
+parking*.xml
 trips.trips.xml
 tile.jpg
