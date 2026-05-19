@@ -20,17 +20,27 @@ def main():
     routes = {}
     for r in sumolib.xml.parse(sys.argv[1], "route"):
         edges = r.edges.split()
-        routes[r.id] = (edges[0], edges[-1])
+        routes[r.id] = (edges[0], edges[-1], [s.busStop for s in r.stop])
     with sumolib.openz(outf, "w") as out:
         sumolib.xml.writeHeader(out, root="routes")
         for v in sumolib.xml.parse(sys.argv[1], "vehicle"):
             depart = float(v.depart)
+            total = 0
             if 6 * 3600 < depart < 7 * 3600:
-                number = random.randint(10, 20 if v.type in ("bus", "tram") else 200)
-                o, d = routes[v.route]
-                print("""    <personFlow id="p%s" begin="triggered" period="0.1" number="%s">
+                o, d, stops = routes[v.route]
+                number = random.randint(5, 12 if v.type in ("bus", "tram") else 250)
+                total += number
+                print("""    <personFlow id="p%s" begin="triggered" period="0.1" number="%s" color="random">
         <ride from="%s" to="%s" lines="%s"/>
     </personFlow>""" % (v.id, number, o, d, v.id), file=out)
+                for s in stops:
+                    number = random.randint(5, 12 if v.type in ("bus", "tram") else 250)
+                    total += number
+                    if total > 85:
+                        break
+                    print("""    <personFlow id="p%s_%s" begin="triggered" period="0.1" number="%s" color="random">
+        <ride from="%s" busStop="%s" lines="%s"/>
+    </personFlow>""" % (v.id, s, number, o, s, v.id), file=out)
         print("</routes>", file=out)
 
 

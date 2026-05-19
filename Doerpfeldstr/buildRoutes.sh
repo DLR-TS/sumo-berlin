@@ -24,8 +24,9 @@ python ./telraam2meandata.py -c Doerpfeldstr.t2mdcfg -o telraam_heavy_data.xml -
 python $SUMO_HOME/tools/routeSampler.py -r delivery.rou.xml -d telraam_heavy_data.xml -o delivery_sampled.rou.xml --prefix delivery --mismatch-output mismatch_delivery.xml --attributes "type=\"delivery\"" --timeline TGw_LKW --merge-strategy ignore
 python $SUMO_HOME/tools/route/addStops2Routes.py -c Doerpfeldstr.as2rcfg --route-files delivery_sampled.rou.xml -o delivery_with_stops.rou.xml -t vtypes.xml
 # pedestrians
-python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz -b 6:0:0 -e 7:0:0 --seed 42 --fringe-factor 1 --insertion-density 10 -r peds.rou.xml --vehicle-class pedestrian --prefix ped --pedestrians --max-distance 2000 --persontrip.walk-opposite-factor 0.8 --persontrip.modes public -a vtypes.xml,gtfs_pt_stops.add.xml,gtfs_pt_vehicles.add.xml
-python ./telraam2meandata.py -c Doerpfeldstr.t2mdcfg -o telraam_ped_data.xml --vtype ped
-python $SUMO_HOME/tools/routeSampler.py -r peds.rou.xml -d telraam_ped_data.xml -o ped_sampled.rou.xml --prefix ped --mismatch-output mismatch_ped.xml --pedestrians --attributes "type=\"pedestrian\" color=\"random\""
+python $SUMO_HOME/tools/randomTrips.py -n Doerpfeldstr_edit.net.xml.gz -b 6:0:0 -e 7:0:0 --seed 42 --fringe-factor 1 --insertion-density 20 -r peds.rou.xml --vehicle-class pedestrian --prefix ped --pedestrians --max-distance 2000 --persontrip.walk-opposite-factor 0.8 --persontrip.modes public -a vtypes.xml,gtfs_pt_stops.add.xml,gtfs_pt_vehicles.add.xml
+# disabling sampling for pedestrians because routeSampler looses rides
+#python ./telraam2meandata.py -c Doerpfeldstr.t2mdcfg -o telraam_ped_data.xml --vtype ped
+#python $SUMO_HOME/tools/routeSampler.py -r peds.rou.xml -d telraam_ped_data.xml -o ped_sampled.rou.xml --prefix ped --mismatch-output mismatch_ped.xml --pedestrians --attributes "type=\"pedestrian\" color=\"random\""
 
 popd

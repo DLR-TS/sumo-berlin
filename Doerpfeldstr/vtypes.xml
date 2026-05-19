@@ -5,7 +5,7 @@
     <vType id="bicycle" vClass="bicycle" color="#ee7f00"/> <!-- ADFC orange  -->
     <vType id="delivery" vClass="delivery" color="#0091cd"/> <!-- Hermes: #0091cd, DHL: #ffcc00 -->
     <vType id="bus" vClass="bus" color="#ffcc00"/> <!-- bus logo color at BVG #af5c91 -->
-    <vType id="light_rail" vClass="rail_urban" color="#ffcc00"/> <!-- S-Bahn logo color in Berlin #408335 -->
+    <vType id="light_rail" vClass="rail_urban" personCapacity="700" color="#ffcc00"/> <!-- S-Bahn logo color in Berlin #408335 -->
     <vType id="tram" vClass="tram" length="28" color="#ffcc00"> <!-- tram logo color at BVG #be1414 -->
         <param key="carriageLength" value="4"/>
         <param key="carriageGap" value="0"/>
