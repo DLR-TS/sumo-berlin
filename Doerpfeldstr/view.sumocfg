@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-05-19T07:35:12.909879+01:00 by Eclipse SUMO GUI v1_26_0+1616-c90c1dc4a14
+<!-- generated on 2026-05-19T13:38:52.629108+01:00 by Eclipse SUMO sumo v1_26_0+1650-789dd05db3e
 -->
 
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -14,6 +14,7 @@
     <time>
         <begin value="6:0:0"/>
         <end value="7:0:0"/>
+        <step-length value="0.2"/>
     </time>
 
     <processing>
