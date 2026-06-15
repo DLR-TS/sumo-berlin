@@ -100,7 +100,7 @@ def main():
         subprocess.check_call([sys.executable, os.path.join(os.environ["SUMO_HOME"], "tools", "ptlines2flows.py"),
             "-c", "sbahn.ptlfcfg"], cwd="sbahn")
     else:
-        if not os.path.exists("sbahn/BVG_VBB_bereichsscharf_20190603.zip"):
+        if not os.path.exists("sbahn/GTFS_VBB_2026_Apr_Dec.zip"):
             urllib.request.urlretrieve("https://sumo.dlr.de/daily/GTFS_VBB_2026_Apr_Dec.zip",
                                        "sbahn/GTFS_VBB_2026_Apr_Dec.zip")
         subprocess.check_call([sys.executable, os.path.join(os.environ["SUMO_HOME"], "tools", "import", "gtfs", "gtfs2pt.py"),

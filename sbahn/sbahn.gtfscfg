@@ -2,7 +2,6 @@
     <gtfs value="GTFS_VBB_2026_Apr_Dec.zip"/>
     <date value="20260428"/>
     <network value="berlin-sbahn.net.xml.gz"/>
-    <mapperlib value="tracemapper"/>
     <human-readable-time value="True"/>
     <sort value="True"/>
     <radius value="500.0"/>
