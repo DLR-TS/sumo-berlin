@@ -8,7 +8,7 @@
     <vType id="light_rail" vClass="rail_urban">
         <param key="has.rerouting.device" value="false"/>
     </vType>
-    <vType id="subway" vClass="rail_urban">
+    <vType id="subway" vClass="subway">
         <param key="has.rerouting.device" value="false"/>
     </vType>
     <vType id="tram" vClass="tram">
